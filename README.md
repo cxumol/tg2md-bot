@@ -22,3 +22,7 @@ To force convert "spoiler" and "underline" entities, add `!unstable` at the begi
 ## Contribution
 
 Find bugs in edge cases? No problem. Pull requests are welcomed!
+
+## Acknowledgement
+
+- [@CodeHZ](https://github.com/codehz/)
