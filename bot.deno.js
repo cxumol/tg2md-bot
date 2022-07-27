@@ -12,8 +12,7 @@ bot.command("ping", (ctx) => ctx.reply(`Pong! ${new Date()} ${Date.now()}`));
 
 bot.command("help", (ctx) => ctx.reply(`Send me *rich* _text_ and I will send it back in Markdown\\.
 
-By default, ||spoiler|| and __underline__ are ignored, because these styles are generally not available in Markdown (dialects)\\.
-
+By default, ||spoiler|| and __underline__ are ignored, because these styles are generally not available in Markdown \\(dialects\\)\\.
 
 To force convert "spoiler" and "underline" entities, add \\!unstable at the beginning of your rich text, and the bot will use HTML tags for convertion\\. But this feature can bring compatibility issues in edge cases\\.`, { parse_mode: "MarkdownV2" }));
 
@@ -56,6 +55,15 @@ if (idx in insertions){
 }
 }
 
+String.prototype.escape = function (chars){
+let s = this;
+for (const char of chars){
+  s = s.replaceAll(char, "\\"+char )
+}
+return s
+};
+const escapeChars = "_*[]()~`|"; //#+-={}>.!
+
 bot.on("message:entities").filter(
 (ctx) => ctx.senderChat === undefined,
 (ctx) => {
@@ -87,8 +95,8 @@ bot.on("message:entities").filter(
       addInsertion( ett.offset, entitiesBeforeAfterHTML[ett.type].before, insertions, "unshift");
       addInsertion( ett.offset+ett.length, entitiesBeforeAfterHTML[ett.type].after, insertions, "push");
     }else if (ett.type=="text_link"){
-      addInsertion( ett.offset, "[", insertions, "unshift");
-      addInsertion( ett.offset+ett.length, `](${ett.url})`, insertions, "push");
+      addInsertion( ett.offset, "[", insertions, "unshift"); 
+      addInsertion( ett.offset+ett.length, `](${encodeURI(ett.url)})`, insertions, "push");
     }
   }
 
@@ -97,7 +105,7 @@ bot.on("message:entities").filter(
   const sliceAts =  Object.keys(insertions).sort((a,b)=>Number(a)-Number(b))
   textArr.push(insertions[sliceAts[0]].ending.join("") + insertions[sliceAts[0]].beginning.join(""))
   for (let i=0; i<sliceAts.length-1;i++){
-    textArr.push( ctx.msg.text.slice( Number(sliceAts[i]), Number(sliceAts[i+1]) ) + insertions[sliceAts[i+1]].ending.join("") + insertions[sliceAts[i+1]].beginning.join("") )
+    textArr.push( ctx.msg.text.slice( Number(sliceAts[i]), Number(sliceAts[i+1]) ).escape(escapeChars) + insertions[sliceAts[i+1]].ending.join("") + insertions[sliceAts[i+1]].beginning.join("") )
   }
 
     ctx.reply( textArr.join("") ) // + "\n\n---DEBUG---\n" + JSON.stringify(insertions)
