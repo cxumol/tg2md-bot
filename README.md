@@ -25,4 +25,4 @@ Find bugs in edge cases? No problem. Pull requests are welcomed!
 
 ## Acknowledgement
 
-- [@CodeHZ](https://github.com/codehz/)
+- [@CodeHz](https://github.com/codehz/)
