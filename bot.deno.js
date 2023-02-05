@@ -2,7 +2,7 @@ import {
   Bot,
   webhookCallback
 } from "https://deno.land/x/grammy@v1.9.1/mod.ts"
-import { serve } from "https://deno.land/x/sift@0.5.0/mod.ts";
+import { serve } from "https://deno.land/x/sift@0.6.0/mod.ts";
 
 const bot = new Bot(Deno.env.get("BOTTOKEN") || "");
 
@@ -28,6 +28,7 @@ const entitiesWrap = {
 // "text_link" : "[]()"
 // "url": undefined,
 }
+const toRemove = ["****", "__", "~~~~"]
 //   
 const entitiesBeforeAfter = {
 "pre": {'before':'```\n', 'after':'\n```'},
@@ -62,7 +63,7 @@ for (const char of chars){
 }
 return s
 };
-const escapeChars = "_*[]()~`|"; //#+-={}>.!
+const escapeChars = "_*[]()~`"; // #+-={}>.!|
 
 bot.on("message:entities").filter(
 (ctx) => ctx.senderChat === undefined,
@@ -107,8 +108,12 @@ bot.on("message:entities").filter(
   for (let i=0; i<sliceAts.length-1;i++){
     textArr.push( ctx.msg.text.slice( Number(sliceAts[i]), Number(sliceAts[i+1]) ).escape(escapeChars) + insertions[sliceAts[i+1]].ending.join("") + insertions[sliceAts[i+1]].beginning.join("") )
   }
-
-    ctx.reply( textArr.join("") ) // + "\n\n---DEBUG---\n" + JSON.stringify(insertions)
+    let result = textArr.join("")
+    for (const toremove of toRemove) {
+      result = result.replaceAll(toremove, "")
+    }
+    
+    ctx.reply( result ) // + "\n\n---DEBUG---\n" + JSON.stringify(insertions)
     //  console.log(ctx.msg)
 } catch (err) {
   console.error(err, insertions, ctx.msg.entities);

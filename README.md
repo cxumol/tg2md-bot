@@ -1,4 +1,10 @@
-# tg2md-bot
+
+<h1 align="center">tg2md-bot</h1>
+
+<p align="center">
+<img width="50%" src="https://user-images.githubusercontent.com/8279655/216827515-bae89bc8-d00b-4b49-b913-747c31c89d1a.jpg">
+</p>
+
 Telegram bot converting Telegram's rich text to Markdown
 
 ## Preview
@@ -27,3 +33,4 @@ Find bugs in edge cases? No problem. Pull requests are welcomed!
 
 - [@CodeHz](https://github.com/codehz/)
 - [@yzqzss](https://github.com/yzqzss/) 
+- [@gledos](https://github.com/gledos)
