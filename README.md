@@ -5,7 +5,9 @@
 <img width="50%" src="https://user-images.githubusercontent.com/8279655/216827515-bae89bc8-d00b-4b49-b913-747c31c89d1a.jpg">
 </p>
 
-Telegram bot converting Telegram's rich text to Markdown
+Telegram bot converting Telegram's rich text to Markdown.
+
+Technical details can be found on the blog post https://xirtam.cxumol.com/tg-to-md/.
 
 ## Preview
 
