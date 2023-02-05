@@ -7,7 +7,7 @@
 
 Telegram bot converting Telegram's rich text to Markdown.
 
-Relevant technical details can be found on the blog post https://xirtam.cxumol.com/tg-to-md/.
+Relevant technical details can be found on the blog post [Rich-Text in Telegram: A Guide to Converting to Markdown and Understanding the Logic Behind Markup Languages](https://xirtam.cxumol.com/tg-to-md/).
 
 ## Preview
 
